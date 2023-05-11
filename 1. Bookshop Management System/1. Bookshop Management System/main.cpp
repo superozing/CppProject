@@ -1,29 +1,177 @@
-// #include "Book.h"
-#include <stdio.h>
+#include "Book.h"
 
-enum bookCategorize
+void informationMode(int& selector, Book* _book)
 {
-	총류 = 0,
-	철학,
-	종교,
-	사회과학,
-	자연과학,
-	기술과학,
-	예술,
-	언어,
-	문학,
-	역사
-};
+	selector = 0;
+	cout << "1. set book name" << endl;
+	cout << "2. print book name" << endl << endl;
+
+	cout << "3. set author name" << endl;
+	cout << "4. print author name" << endl << endl;
+
+	cout << "5. set price" << endl;
+	cout << "6. print price" << endl << endl;
+
+	cout << "7. set page" << endl;
+	cout << "8. print page" << endl << endl;
+
+	cout << "9. set Categorize" << endl;
+	cout << "10. print Categorize" << endl;
+	cout << "11. print bookID" << endl << endl;
+
+	cout << "12. print all info " << endl << endl;
+
+	cout << "else. main menu " << endl << endl;
+
+	cout << "select funcion number: ";
+	cin >> selector;
+
+	switch (selector)
+	{
+	case 1:
+		cout << "set book name: ";
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	case 5:
+
+		break;
+	case 6:
+
+		break;
+	case 7:
+
+		break;
+	case 8:
+
+		break;
+	case 9:
+
+		break;
+	case 10:
+
+		break;
+	case 11:
+
+		break;
+	case 12:
+
+		break;
+	default:
+		break;
+	}
+}
+
+void stockMode(int& selector, Book* _book)
+{
+	selector = 0;
+	cout << "1. print book Stock" << endl;
+	cout << "2. update book Stock" << endl;
+	cout << "3. add-sub book Stock" << endl << endl;
+
+	cout << "3. print sellCount" << endl << endl;
+
+	cout << "4. main menu" << endl << endl;
+
+	cout << "select funcion number: ";
+	cin >> selector;
+
+	switch (selector)
+	{
+	case 1:
+		informationMode(selector,_book);
+		break;
+	case 2:
+		stockMode(selector,_book);
+		break;
+	case 3:
+		_book->s_sell();
+		break;
+	default:
+		break;
+	}
+}
+
+void BookMode(Book* _book)
+{
+	int selector = 0;
+	_book->bookInfo();
+	while (true) 
+	{
+		selector = 0;
+		cout << endl << "1. Information" << endl;
+		cout << "2. stock" << endl;
+		cout << "3. SELL BOOK " << endl;
+		cout << "else. main menu" << endl << endl;
+		cout << "select funcion number: ";
+		cin >> selector;
+
+		switch (selector)
+		{
+		case 1:
+			informationMode(selector,_book);
+			break;
+		case 2:
+			stockMode(selector, _book);
+			break;
+		case 3:
+			_book->s_sell();
+			break;
+		default:
+			break;
+		}
+	
+	}
+	
+
+}
 
 int main()
 {	
-	//Book* B1 = new Book("InMyPJH","PJH",99999,999,000,10);
+	Book* b1 = new Book("InMyPJH", "PJH", 7500, 210, 0, 10);
+	Book* b2 = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10);
+	Book* b3 = new Book("InMyPJH2","PJH",7500,210,100,10);
 
-	//cout << "Bookshop Management" << endl << "***PROGRAM***" << endl;
-	//cout << "0. Book selection" << endl;
-	//cout << "1. Sell Book" << endl;
-	//cout << "2. " << endl;
-	enum bookCategorize cb = 총류;
-	printf("%d \n", (int)cb);
+	int selector = 0;
+
+	while (true)
+	{
+		selector = 0;
+		cout << "**********Bookshop Management System**********" << endl;
+		cout << "- Today --------------------------------------" << endl;
+		cout << "sell count : " << &Book::todaySell << endl;
+		cout << "income     : " << &Book::todayIncome << endl << endl;
+
+		cout << "- BOOK LIST ----------------------------------" << endl;
+		cout << "1. InMyPJH" << endl;
+		cout << "2. Fuck You PJH" << endl;
+		cout << "3. InMyPJH2" << endl;
+		cout << "select book number: ";
+		cin >> selector;
+
+		switch (selector)
+		{
+		case 1:
+			BookMode(b1);
+			break;
+		case 2:
+			BookMode(b2);
+			break;
+		case 3:
+			BookMode(b3);
+			break;
+		}
+		if (!(1 == (int)selector || 2 == (int)selector || 3 == (int)selector))
+			cout << "problem: You need select number 1~3" << endl << endl;
+	}
+	
 	return 0;
 }
