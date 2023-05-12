@@ -1,12 +1,11 @@
 #include "Book.h"
 
-int Book::todaySellCount = 0;
-int Book::todaySellMoney = 0;
 int IDBuffer[10] = { 0 };
 
+
 // 전체 재고 반환
-int		Book::todaySell() { return todaySellCount; }
-int		Book::todayIncome() { return todaySellMoney; }
+int		Book::todaySell() { return itodaySell; }
+int		Book::todayIncome() { return itodayIncome; }
 
 // 책 정보 반환
 string	Book::bookName()	{ return m_name; }
@@ -15,6 +14,7 @@ int		Book::price()		{ return m_price; }
 int		Book::page()		{ return m_page; }
 int		Book::bookID()		{ return m_id; }
 int		Book::categorize()  { return m_categorize; }
+
 // 책 정보 반환 - 재고
 int		Book::s_bookStock()	{ return ms_bookStock; }
 int		Book::s_sellCount()	{ return ms_sellCount; }
@@ -50,8 +50,8 @@ void Book::s_sell()
 	}
 	--ms_bookStock;
 	++ms_sellCount;
-	++todaySellCount;
-	todaySellMoney += m_price;
+	++itodaySell;
+	itodayIncome += m_price;
 	cout << "The selling has been completed." << endl;
 }
 

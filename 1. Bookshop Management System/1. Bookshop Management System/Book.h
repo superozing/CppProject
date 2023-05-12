@@ -13,6 +13,8 @@ enum bookCategorize
 };
 
 
+int itodaySell = 0;
+int itodayIncome = 0;
 
 class Book
 {
@@ -26,9 +28,6 @@ private:
 
 	int		ms_bookStock;
 	int		ms_sellCount;
-
-	static int todaySellCount;
-	static int todaySellMoney;
 
 public: // 책 정보 관리 함수:
 

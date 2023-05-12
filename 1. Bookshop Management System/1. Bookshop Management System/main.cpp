@@ -1,7 +1,11 @@
 #include "Book.h"
 
+using namespace std;
+
 void informationMode(int& selector, Book* _book)
 {
+	string	fs = "";
+	int		fi = 0;
 	selector = 0;
 	cout << "1. set book name" << endl;
 	cout << "2. print book name" << endl << endl;
@@ -25,45 +29,61 @@ void informationMode(int& selector, Book* _book)
 
 	cout << "select funcion number: ";
 	cin >> selector;
-
+	system("cls");
 	switch (selector)
 	{
 	case 1:
 		cout << "set book name: ";
+		cin >> fs;
+		_book->setName(fs);
 
 		break;
 	case 2:
-
+		cout << "Book name: ";
+		cout << _book->bookName();
 		break;
 	case 3:
-
+		cout << "set author name: ";
+		cin >> fs;
+		_book->setAuthor(fs);
 		break;
 	case 4:
-
+		cout << "author name: ";
+		cout << _book->bookAuthor();
 		break;
 	case 5:
-
+		cout << "set book price: ";
+		cin >> fi;
+		_book->setPrice(fi);
 		break;
 	case 6:
-
+		cout << "Book price: ";
+		cout << _book->price();
 		break;
 	case 7:
-
+		cout << "set book page: ";
+		cin >> fi;
+		_book->setPage(fi);
 		break;
 	case 8:
-
+		cout << "Book page: ";
+		cout << _book->page();
 		break;
 	case 9:
-
+		cout << "set categorize: ";
+		cin >> fi;
+		_book->setCategorize(fi);
 		break;
 	case 10:
-
+		cout << "Book categorize: ";
+		cout << _book->categorize();
 		break;
 	case 11:
-
+		cout << "Book ID: ";
+		cout << _book->bookID();
 		break;
 	case 12:
-
+		_book->bookInfo();
 		break;
 	default:
 		break;
@@ -72,28 +92,39 @@ void informationMode(int& selector, Book* _book)
 
 void stockMode(int& selector, Book* _book)
 {
+	string	fs = "";
+	int		fi = 0;
 	selector = 0;
 	cout << "1. print book Stock" << endl;
 	cout << "2. update book Stock" << endl;
 	cout << "3. add-sub book Stock" << endl << endl;
 
-	cout << "3. print sellCount" << endl << endl;
+	cout << "4. print sellCount" << endl << endl;
 
-	cout << "4. main menu" << endl << endl;
+	cout << "else. main menu" << endl << endl;
 
 	cout << "select funcion number: ";
 	cin >> selector;
-
+	system("cls");
 	switch (selector)
 	{
 	case 1:
-		informationMode(selector,_book);
+		cout << "Book stock: ";
+		cout << _book->s_bookStock();
 		break;
 	case 2:
-		stockMode(selector,_book);
+		cout << "set book stock: ";
+		cin >> fi;
+		_book->s_updateStock(fi);
 		break;
 	case 3:
-		_book->s_sell();
+		cout << " add-sub book stock: ";
+		cin >> fi;
+		_book->s_addSubStock(fi);
+		break;
+	case 4:
+		cout << "Book sellCount: ";
+		cout << _book->s_sellCount();
 		break;
 	default:
 		break;
@@ -104,34 +135,33 @@ void BookMode(Book* _book)
 {
 	int selector = 0;
 	_book->bookInfo();
-	while (true) 
+
+	selector = 0;
+	cout << endl << "1. Information" << endl;
+	cout << "2. stock" << endl;
+	cout << "3. SELL BOOK " << endl;
+	cout << "else. main menu" << endl << endl;
+	cout << "select funcion number: ";
+	cin >> selector;
+	system("cls");
+	switch (selector)
 	{
-		selector = 0;
-		cout << endl << "1. Information" << endl;
-		cout << "2. stock" << endl;
-		cout << "3. SELL BOOK " << endl;
-		cout << "else. main menu" << endl << endl;
-		cout << "select funcion number: ";
-		cin >> selector;
-
-		switch (selector)
-		{
-		case 1:
-			informationMode(selector,_book);
-			break;
-		case 2:
-			stockMode(selector, _book);
-			break;
-		case 3:
-			_book->s_sell();
-			break;
-		default:
-			break;
-		}
-	
+	case 1:
+		system("cls");
+		informationMode(selector, _book);
+		break;
+	case 2:
+		system("cls");
+		stockMode(selector, _book);
+		break;
+	case 3:
+		system("cls");
+		_book->s_sell();
+		break;
+	default:
+		break;
 	}
-	
-
+		
 }
 
 int main()
@@ -145,10 +175,11 @@ int main()
 	while (true)
 	{
 		selector = 0;
+		
 		cout << "**********Bookshop Management System**********" << endl;
 		cout << "- Today --------------------------------------" << endl;
-		cout << "sell count : " << &Book::todaySell << endl;
-		cout << "income     : " << &Book::todayIncome << endl << endl;
+		cout << "sell count : " << itodaySell << endl;
+		cout << "income     : " << itodayIncome << endl << endl;
 
 		cout << "- BOOK LIST ----------------------------------" << endl;
 		cout << "1. InMyPJH" << endl;
@@ -156,7 +187,7 @@ int main()
 		cout << "3. InMyPJH2" << endl;
 		cout << "select book number: ";
 		cin >> selector;
-
+		system("cls");
 		switch (selector)
 		{
 		case 1:
@@ -169,6 +200,7 @@ int main()
 			BookMode(b3);
 			break;
 		}
+		system("cls");
 		if (!(1 == (int)selector || 2 == (int)selector || 3 == (int)selector))
 			cout << "problem: You need select number 1~3" << endl << endl;
 	}
