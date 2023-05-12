@@ -13,8 +13,8 @@ enum bookCategorize
 };
 
 
-int itodaySell = 0;
-int itodayIncome = 0;
+static int itodaySell = 0;
+static int itodayIncome = 0;
 
 class Book
 {

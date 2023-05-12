@@ -7,6 +7,8 @@ void informationMode(int& selector, Book* _book)
 	string	fs = "";
 	int		fi = 0;
 	selector = 0;
+	_book->bookInfo();
+
 	cout << "1. set book name" << endl;
 	cout << "2. print book name" << endl << endl;
 
@@ -36,54 +38,65 @@ void informationMode(int& selector, Book* _book)
 		cout << "set book name: ";
 		cin >> fs;
 		_book->setName(fs);
-
+		cout << endl;
 		break;
 	case 2:
 		cout << "Book name: ";
 		cout << _book->bookName();
+		cout << endl;
 		break;
 	case 3:
 		cout << "set author name: ";
 		cin >> fs;
 		_book->setAuthor(fs);
+		cout << endl;
 		break;
 	case 4:
 		cout << "author name: ";
 		cout << _book->bookAuthor();
+		cout << endl;
 		break;
 	case 5:
 		cout << "set book price: ";
 		cin >> fi;
 		_book->setPrice(fi);
+		cout << endl;
 		break;
 	case 6:
 		cout << "Book price: ";
 		cout << _book->price();
+		cout << endl;
 		break;
 	case 7:
 		cout << "set book page: ";
 		cin >> fi;
 		_book->setPage(fi);
+		cout << endl;
 		break;
 	case 8:
 		cout << "Book page: ";
 		cout << _book->page();
+		cout << endl;
 		break;
 	case 9:
 		cout << "set categorize: ";
 		cin >> fi;
 		_book->setCategorize(fi);
+		cout << endl;
 		break;
 	case 10:
 		cout << "Book categorize: ";
 		cout << _book->categorize();
+		cout << endl;
 		break;
 	case 11:
 		cout << "Book ID: ";
 		cout << _book->bookID();
+		cout << endl;
 		break;
 	case 12:
 		_book->bookInfo();
+		cout << endl;
 		break;
 	default:
 		break;
@@ -95,6 +108,8 @@ void stockMode(int& selector, Book* _book)
 	string	fs = "";
 	int		fi = 0;
 	selector = 0;
+	_book->bookInfo();
+
 	cout << "1. print book Stock" << endl;
 	cout << "2. update book Stock" << endl;
 	cout << "3. add-sub book Stock" << endl << endl;
@@ -111,20 +126,24 @@ void stockMode(int& selector, Book* _book)
 	case 1:
 		cout << "Book stock: ";
 		cout << _book->s_bookStock();
+		cout << endl;
 		break;
 	case 2:
 		cout << "set book stock: ";
 		cin >> fi;
 		_book->s_updateStock(fi);
+		cout << endl;
 		break;
 	case 3:
 		cout << " add-sub book stock: ";
 		cin >> fi;
 		_book->s_addSubStock(fi);
+		cout << endl;
 		break;
 	case 4:
 		cout << "Book sellCount: ";
 		cout << _book->s_sellCount();
+		cout << endl;
 		break;
 	default:
 		break;
@@ -169,7 +188,7 @@ int main()
 	Book* b1 = new Book("InMyPJH", "PJH", 7500, 210, 0, 10);
 	Book* b2 = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10);
 	Book* b3 = new Book("InMyPJH2","PJH",7500,210,100,10);
-
+	
 	int selector = 0;
 
 	while (true)
@@ -178,8 +197,10 @@ int main()
 		
 		cout << "**********Bookshop Management System**********" << endl;
 		cout << "- Today --------------------------------------" << endl;
-		cout << "sell count : " << itodaySell << endl;
-		cout << "income     : " << itodayIncome << endl << endl;
+		cout << "sell count : ";
+		cout << itodaySell << endl;
+		cout << "income     : ";
+		cout << itodayIncome << endl << endl;
 
 		cout << "- BOOK LIST ----------------------------------" << endl;
 		cout << "1. InMyPJH" << endl;
@@ -200,7 +221,6 @@ int main()
 			BookMode(b3);
 			break;
 		}
-		system("cls");
 		if (!(1 == (int)selector || 2 == (int)selector || 3 == (int)selector))
 			cout << "problem: You need select number 1~3" << endl << endl;
 	}
