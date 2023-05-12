@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
-#include <map>
+#include <vector>
 
 using namespace std;
 
@@ -13,8 +13,9 @@ enum bookCategorize
 };
 
 
-static int itodaySell = 0;
-static int itodayIncome = 0;
+
+
+
 
 class Book
 {
@@ -65,8 +66,8 @@ public: // 책 재고 관리 함수:
 public:	// 책 정보 전체 출력
 	void bookInfo();	
 	//////////////////////////
-	int todaySell();
-	int todayIncome();
+	//int todaySell();
+	//int todayIncome();
 
 	Book();
 	Book(string _bookName, string _bookAuthor, int _price, int _page, int _categorize, int _bookStock);

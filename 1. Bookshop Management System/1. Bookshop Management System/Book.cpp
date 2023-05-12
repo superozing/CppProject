@@ -3,9 +3,9 @@
 int IDBuffer[10] = { 0 };
 
 
-// 전체 재고 반환
-int		Book::todaySell() { return itodaySell; }
-int		Book::todayIncome() { return itodayIncome; }
+//// 전체 재고 반환
+//int		Book::todaySell() { return itodaySell; }
+//int		Book::todayIncome() { return itodayIncome; }
 
 // 책 정보 반환
 string	Book::bookName()	{ return m_name; }
@@ -50,8 +50,7 @@ void Book::s_sell()
 	}
 	--ms_bookStock;
 	++ms_sellCount;
-	++itodaySell;
-	itodayIncome += m_price;
+
 	cout << "The selling has been completed." << endl;
 }
 

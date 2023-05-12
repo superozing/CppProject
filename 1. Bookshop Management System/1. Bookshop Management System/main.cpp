@@ -185,22 +185,32 @@ void BookMode(Book* _book)
 
 int main()
 {	
+
+	
 	Book* b1 = new Book("InMyPJH", "PJH", 7500, 210, 0, 10);
 	Book* b2 = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10);
 	Book* b3 = new Book("InMyPJH2","PJH",7500,210,100,10);
-	
+
 	int selector = 0;
+
+	int totalSell = 0;
+	int totalIncome = 0;
 
 	while (true)
 	{
 		selector = 0;
+
+		totalSell = b1->s_sellCount() + b2->s_sellCount() + b3->s_sellCount();
 		
+		totalIncome = (b1->price() * b1->s_sellCount()) +
+			(b2->price() * b2->s_sellCount()) + (b3->price() * b3->s_sellCount());
+
 		cout << "**********Bookshop Management System**********" << endl;
 		cout << "- Today --------------------------------------" << endl;
 		cout << "sell count : ";
-		cout << itodaySell << endl;
+		cout << totalSell << endl;
 		cout << "income     : ";
-		cout << itodayIncome << endl << endl;
+		cout << totalIncome << endl << endl;
 
 		cout << "- BOOK LIST ----------------------------------" << endl;
 		cout << "1. InMyPJH" << endl;
