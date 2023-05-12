@@ -180,16 +180,17 @@ void BookMode(Book* _book)
 	default:
 		break;
 	}
-		
+
 }
 
 int main()
-{	
+{
 
-	
+
 	Book* b1 = new Book("InMyPJH", "PJH", 7500, 210, 0, 10);
 	Book* b2 = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10);
-	Book* b3 = new Book("InMyPJH2","PJH",7500,210,100,10);
+	Book* b3 = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10);
+
 
 	int selector = 0;
 
@@ -201,9 +202,7 @@ int main()
 		selector = 0;
 
 		totalSell = b1->s_sellCount() + b2->s_sellCount() + b3->s_sellCount();
-		
-		totalIncome = (b1->price() * b1->s_sellCount()) +
-			(b2->price() * b2->s_sellCount()) + (b3->price() * b3->s_sellCount());
+		totalIncome = b1->s_todaySell() + b2->s_todaySell() + b3->s_todaySell();
 
 		cout << "**********Bookshop Management System**********" << endl;
 		cout << "- Today --------------------------------------" << endl;
@@ -234,6 +233,4 @@ int main()
 		if (!(1 == (int)selector || 2 == (int)selector || 3 == (int)selector))
 			cout << "problem: You need select number 1~3" << endl << endl;
 	}
-	
-	return 0;
 }

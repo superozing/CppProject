@@ -3,9 +3,8 @@
 int IDBuffer[10] = { 0 };
 
 
-//// 전체 재고 반환
-//int		Book::todaySell() { return itodaySell; }
-//int		Book::todayIncome() { return itodayIncome; }
+/// 전체 재고 반환
+int		Book::s_todaySell() { return ms_Income; }
 
 // 책 정보 반환
 string	Book::bookName()	{ return m_name; }
@@ -50,7 +49,7 @@ void Book::s_sell()
 	}
 	--ms_bookStock;
 	++ms_sellCount;
-
+	ms_Income += m_price;
 	cout << "The selling has been completed." << endl;
 }
 
@@ -153,8 +152,9 @@ Book::Book()
 	, m_author("__notFound")
 	, m_price(-1)
 	, m_page(-1)
+	, m_categorize(-1)
 	, m_id(-1)
-
+	, ms_Income(0)
 	, ms_bookStock(0)
 	, ms_sellCount(0)
 {
@@ -167,6 +167,7 @@ Book::Book(string _bookName, string _bookAuthor, int _price, int _page, int _cat
 	, m_page(_page)
 	, m_categorize(_categorize)
 	, m_id(NULL)
+	, ms_Income(0)
 
 	, ms_bookStock(_bookStock)
 	, ms_sellCount(0)

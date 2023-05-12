@@ -30,6 +30,8 @@ private:
 	int		ms_bookStock;
 	int		ms_sellCount;
 
+	int		ms_Income;
+
 public: // 책 정보 관리 함수:
 
 	// 책 정보 반환
@@ -55,6 +57,7 @@ public: // 책 재고 관리 함수:
 	// 책 재고 정보 반환
 	int s_bookStock();
 	int s_sellCount();
+	int s_todaySell();
 
 	// 책 재고 정보 수정
 	void s_updateStock(int _stock);
@@ -65,9 +68,7 @@ public: // 책 재고 관리 함수:
 
 public:	// 책 정보 전체 출력
 	void bookInfo();	
-	//////////////////////////
-	//int todaySell();
-	//int todayIncome();
+
 
 	Book();
 	Book(string _bookName, string _bookAuthor, int _price, int _page, int _categorize, int _bookStock);
