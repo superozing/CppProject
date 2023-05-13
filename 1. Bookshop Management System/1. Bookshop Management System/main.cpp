@@ -186,11 +186,9 @@ void BookMode(Book* _book)
 int main()
 {
 
-
 	Book* b1 = new Book("InMyPJH", "PJH", 7500, 210, 0, 10);
 	Book* b2 = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10);
 	Book* b3 = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10);
-
 
 	int selector = 0;
 
@@ -212,9 +210,9 @@ int main()
 		cout << totalIncome << endl << endl;
 
 		cout << "- BOOK LIST ----------------------------------" << endl;
-		cout << "1. InMyPJH" << endl;
-		cout << "2. Fuck You PJH" << endl;
-		cout << "3. InMyPJH2" << endl;
+		cout << "1. " << b1->bookName() << endl;
+		cout << "2. " << b2->bookName() << endl;
+		cout << "3. " << b3->bookName() << endl;
 		cout << "select book number: ";
 		cin >> selector;
 		system("cls");

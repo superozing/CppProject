@@ -12,11 +12,6 @@ enum bookCategorize
 	기술과학, 예술, 언어, 문학, 역사
 };
 
-
-
-
-
-
 class Book
 {
 private:
