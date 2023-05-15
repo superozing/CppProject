@@ -43,7 +43,7 @@ void informationMode(int& selector, Book* _book)
 		break;
 	case 2:
 		cout << "Book name: ";
-		cout << _book->bookName();
+		cout << _book->getBookName();
 		cout << endl;
 		break;
 	case 3:
@@ -54,7 +54,7 @@ void informationMode(int& selector, Book* _book)
 		break;
 	case 4:
 		cout << "author name: ";
-		cout << _book->bookAuthor();
+		cout << _book->getBookAuthor();
 		cout << endl;
 		break;
 	case 5:
@@ -65,7 +65,7 @@ void informationMode(int& selector, Book* _book)
 		break;
 	case 6:
 		cout << "Book price: ";
-		cout << _book->price();
+		cout << _book->getPrice();
 		cout << endl;
 		break;
 	case 7:
@@ -76,7 +76,7 @@ void informationMode(int& selector, Book* _book)
 		break;
 	case 8:
 		cout << "Book page: ";
-		cout << _book->page();
+		cout << _book->getPage();
 		cout << endl;
 		break;
 	case 9:
@@ -87,12 +87,12 @@ void informationMode(int& selector, Book* _book)
 		break;
 	case 10:
 		cout << "Book categorize: ";
-		cout << _book->categorize();
+		cout << _book->getCategorize();
 		cout << endl;
 		break;
 	case 11:
 		cout << "Book ID: ";
-		cout << _book->bookID();
+		cout << _book->getBookID();
 		cout << endl;
 		break;
 	case 12:
@@ -211,9 +211,9 @@ int main()
 		cout << totalIncome << endl << endl;
 
 		cout << "- BOOK LIST ----------------------------------" << endl;
-		cout << "1. " << b1->bookName() << endl;
-		cout << "2. " << b2->bookName() << endl;
-		cout << "3. " << b3->bookName() << endl;
+		cout << "1. " << b1->getBookName() << endl;
+		cout << "2. " << b2->getBookName() << endl;
+		cout << "3. " << b3->getBookName() << endl;
 		cout << "select book number: ";
 		cin >> selector;
 		system("cls");

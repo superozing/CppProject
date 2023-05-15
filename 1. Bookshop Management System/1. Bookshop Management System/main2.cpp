@@ -1,12 +1,52 @@
 #include "Book.h"
-
+#include <vector>
 #include <iostream>
+#include "main.h"
+using namespace std;
 
-void informationMode(int& selector, Book* _book)
+static const int	INVALID_ID	= -1;
+static const int	VALID_ID	= 1;
+// 전역 함수를 정의합니다: 
+void mainScreen(vector<Book*>& bookList);
+void selectFunction(vector<Book*>& bookList);
+void BookMode(Book* _book);
+void informationMode(Book* _book);
+void stockMode(Book* _book);
+	
+void selectBookList(const vector<Book*>& bookList);
+	
+void addBook(vector<Book*>& bookList);
+void deleteBook(vector<Book*>& bookList);
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// main() 함수를 정의합니다:
+int main()
+{
+	Book*			bookBuffer	= {};
+	vector<Book*>	bookList;
+	
+	// 예시 책 객체
+	bookList.push_back(bookBuffer = new Book("InMyPJH", "PJH", 7500, 210, 000, 10));
+	bookList.push_back(bookBuffer = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10));
+	bookList.push_back(bookBuffer = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10));
+
+	while (true)
+	{
+		mainScreen(bookList);
+	}
+
+	// 종료 직전에 파일 입력 구현해놓는 것이 마지막 목표
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void informationMode(Book* _book)
 {
 	string	fs = "";
 	int		fi = 0;
-	selector = 0;
+	int		selector = 0;
 	_book->bookInfo();
 
 	cout << "1. set book name" << endl;
@@ -37,61 +77,66 @@ void informationMode(int& selector, Book* _book)
 	case 1:
 		cout << "set book name: ";
 		cin >> fs;
+		if (INVALID_ID == _book->setName(fs)) return;
 		_book->setName(fs);
 		cout << endl;
 		break;
 	case 2:
 		cout << "Book name: ";
-		cout << _book->bookName();
+		cout << _book->getBookName();
 		cout << endl;
 		break;
 	case 3:
 		cout << "set author name: ";
 		cin >> fs;
+		if (INVALID_ID == _book->setAuthor(fs)) return;
 		_book->setAuthor(fs);
 		cout << endl;
 		break;
 	case 4:
 		cout << "author name: ";
-		cout << _book->bookAuthor();
+		cout << _book->getBookAuthor();
 		cout << endl;
 		break;
 	case 5:
 		cout << "set book price: ";
 		cin >> fi;
+		if (INVALID_ID == _book->setPrice(fi)) return;
 		_book->setPrice(fi);
 		cout << endl;
 		break;
 	case 6:
 		cout << "Book price: ";
-		cout << _book->price();
+		cout << _book->getPrice();
 		cout << endl;
 		break;
 	case 7:
 		cout << "set book page: ";
 		cin >> fi;
+		if (INVALID_ID == _book->setPage(fi)) return;
 		_book->setPage(fi);
 		cout << endl;
 		break;
 	case 8:
 		cout << "Book page: ";
-		cout << _book->page();
+		cout << _book->getPage();
 		cout << endl;
 		break;
 	case 9:
 		cout << "set categorize: ";
 		cin >> fi;
+		if (INVALID_ID == _book->setCategorize(fi)) return;
 		_book->setCategorize(fi);
 		cout << endl;
 		break;
 	case 10:
 		cout << "Book categorize: ";
-		cout << _book->categorize();
+		cout << _book->getCategorize();
 		cout << endl;
 		break;
 	case 11:
 		cout << "Book ID: ";
-		cout << _book->bookID();
+		cout << _book->getBookID();
 		cout << endl;
 		break;
 	case 12:
@@ -103,11 +148,12 @@ void informationMode(int& selector, Book* _book)
 	}
 }
 
-void stockMode(int& selector, Book* _book)
+void stockMode(Book* _book)
 {
-	string	fs = "";
-	int		fi = 0;
-	selector = 0;
+	string	fs			= "";
+	int		fi			= 0;
+	int		selector	= 0;
+
 	_book->bookInfo();
 
 	cout << "1. print book Stock" << endl;
@@ -120,7 +166,9 @@ void stockMode(int& selector, Book* _book)
 
 	cout << "select funcion number: ";
 	cin >> selector;
+
 	system("cls");
+
 	switch (selector)
 	{
 	case 1:
@@ -131,12 +179,14 @@ void stockMode(int& selector, Book* _book)
 	case 2:
 		cout << "set book stock: ";
 		cin >> fi;
+		if (INVALID_ID == _book->s_updateStock(fi)) return;
 		_book->s_updateStock(fi);
 		cout << endl;
 		break;
 	case 3:
 		cout << " add-sub book stock: ";
 		cin >> fi;
+		if (INVALID_ID == _book->s_addSubStock(fi)) return;
 		_book->s_addSubStock(fi);
 		cout << endl;
 		break;
@@ -191,7 +241,7 @@ void selectBookList(const vector<Book*>& bookList)
 	system("cls");
 	cout << "- BOOK LIST ----------------------------------" << endl;
 	for (int i = 0; i < bookList.size(); ++i)
-		cout << i + 1 << ". " << bookList[i]->bookName() << endl;
+		cout << i + 1 << ". " << bookList[i]->getBookName() << endl;
 	cout << endl << "0. main menu" << endl;
 
 	cout << "select book number: ";
@@ -224,6 +274,11 @@ void addBook(vector<Book*>& bookList)
 	Book*	book	= new Book();
 	string	fs		= "";
 	int		fi		= 0;
+	
+	cout << "Categorize(Enter in 100 units): ";
+	cin >> fi;
+	fi = book->setCategorize(fi);
+	if (fi == 1) return;
 
 	cout << "Book name: ";
 	cin >> fs;
@@ -241,17 +296,15 @@ void addBook(vector<Book*>& bookList)
 	cin >> fi;
 	book->setPage(fi);
 
-	cout << "Categorize(Enter in 100 units): ";
-	cin >> fi;
-	book->setCategorize(fi);
-
 	bookList.push_back(book);
 
 }
+
+
 void deleteBook(vector<Book*>& bookList)
 {
-	int		check = 0;
-	while (true)
+	int		check = 1;
+	while (check)
 	{
 		cout << "Are you sure you want to DELETE A BOOK? (yes: 1, no: 0) :";
 		cin >> check;
@@ -262,14 +315,20 @@ void deleteBook(vector<Book*>& bookList)
 	}
 	cout << "Enter the book ID of the book you want to delete correctly :";
 	cin >> check;
-	//for (vector<Book *>::iterator i = bookList.begin(); i != bookList.end(); ++i)
-	//{
-	//	if (check == i->)
-	//	{
-	//		i->erase();
-	//		break;
-	//	}
-	//}
+	for (int i = 0; i < bookList.size(); ++i)
+	{
+		if (check == bookList[i]->getBookID())
+		{
+			vector<Book*>::iterator it = bookList.begin() + i;
+			cout << "The book with the following title has been deleted: " 
+				<< bookList[i]->getBookName() << endl;
+			bookList.erase(it);
+			return;
+		}
+	}
+	cout << "problem: You must enter a valid bookID." << endl;
+
+	
 }
 
 void selectFunction(vector<Book*>& bookList)
@@ -298,56 +357,42 @@ void selectFunction(vector<Book*>& bookList)
 	}
 }
 
-int main()
+
+
+void mainScreen(vector<Book*>& bookList)
 {
-	int selector = 0;
-	int totalSell = 0;
+	int selector	= 0;
+	int	totalSell	= 0; 
 	int totalIncome = 0;
 
-	vector<Book*> bookList;
-	Book* book = {};
-	
-	bookList.push_back(book = new Book("InMyPJH", "PJH", 7500, 210, 000, 10));
-	bookList.push_back(book = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10));
-	bookList.push_back(book = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10));
-
-	while (true)
+	for (int i = 0; i < bookList.size(); ++i)
 	{
-
-		selector = 0;
-		totalSell = 0;
-		totalIncome = 0;
-
-		for (int i = 0; i < bookList.size(); ++i)
-		{
-			totalSell += bookList[i]->s_sellCount();
-			totalIncome += bookList[i]->s_todaySell();
-		}
-		cout << "**********Bookshop Management System**********" << endl;
-		cout << "- Today --------------------------------------" << endl;
-		cout << "sell count : ";
-		cout << totalSell << endl;
-		cout << "income     : ";
-		cout << totalIncome << endl << endl;
-		cout << "- Menu ---------------------------------------" << endl;
-		cout << "1. bookList" << endl;
-		cout << "2. function" << endl;
-		cout << "select number: ";
-		cin >> selector;
-		system("cls");
-		switch (selector)
-		{
-		case 1:
-			selectBookList(bookList);
-			break;
-		case 2:
-			selectFunction(bookList);
-			break;
-		default:
-			break;
-		}		
+		totalSell += bookList[i]->s_sellCount();
+		totalIncome += bookList[i]->s_todaySell();
 	}
 
-	// 종료 직전에 파일 입력 구현해놓는 것이 마지막 목표
-	return 0;
+	cout << "**********Bookshop Management System**********" << endl;
+	cout << "- Today --------------------------------------" << endl;
+	cout << "sell count : ";
+	cout << totalSell << endl;
+	cout << "income     : ";
+	cout << totalIncome << endl << endl;
+	cout << "- Menu ---------------------------------------" << endl;
+	cout << "1. bookList" << endl;
+	cout << "2. function" << endl;
+	cout << "select number: ";
+	cin >> selector;
+
+	system("cls");
+	switch (selector)
+	{
+	case 1:
+		selectBookList(bookList);
+		break;
+	case 2:
+		selectFunction(bookList);
+		break;
+	default:
+		break;
+	}
 }
