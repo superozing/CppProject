@@ -6,11 +6,11 @@
 
 using namespace std;
 
-enum bookCategorize
-{
-	총류, 철학, 종교, 사회과학, 자연과학,
-	기술과학, 예술, 언어, 문학, 역사
-};
+//enum bookCategorize
+//{
+//	총류, 철학, 종교, 사회과학, 자연과학,
+//	기술과학, 예술, 언어, 문학, 역사
+//};
 
 class Book
 {

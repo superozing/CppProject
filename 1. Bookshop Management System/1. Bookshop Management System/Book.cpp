@@ -18,6 +18,7 @@ int		Book::categorize()  { return m_categorize; }
 int		Book::s_bookStock()	{ return ms_bookStock; }
 int		Book::s_sellCount()	{ return ms_sellCount; }
 
+
 void Book::s_updateStock(int _stock)
 {
 	if (0 > _stock)

@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 void informationMode(int& selector, Book* _book)
 {
 	string	fs = "";
