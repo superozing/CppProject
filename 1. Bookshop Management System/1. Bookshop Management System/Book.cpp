@@ -1,9 +1,11 @@
 #include "Book.h"
 #include <iostream>
-#include "main2.cpp"
+
+const int	INVALID_ID = -1;
+const int	VALID_ID = 1;
 
 
-int					IDBuffer[10] = { 0 };
+int			IDBuffer[10] = { 0 };
 
 // 책 정보 반환
 std::string	Book::getBookName()		{ return m_name; }
@@ -229,9 +231,9 @@ Book::Book()
 	, m_page(INVALID_ID)
 	, m_categorize(INVALID_ID)
 	, m_id(INVALID_ID)
-	, ms_Income(INVALID_ID)
+	, ms_Income(0)
 	, ms_bookStock(INVALID_ID)
-	, ms_sellCount(INVALID_ID)
+	, ms_sellCount(0)
 {
 }
 
@@ -242,10 +244,10 @@ Book::Book(std::string _bookName, std::string _bookAuthor, int _price, int _page
 	, m_page(_page)
 	, m_categorize(_categorize)
 	, m_id(NULL)
-	, ms_Income(INVALID_ID)
+	, ms_Income(0)
 
 	, ms_bookStock(_bookStock)
-	, ms_sellCount(INVALID_ID)
+	, ms_sellCount(0)
 {
 	switch (_categorize)
 	{
