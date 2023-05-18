@@ -13,10 +13,10 @@ private:
 	int			m_id;
 	int			m_categorize;
 
-	int			ms_bookStock;
-	int			ms_sellCount;
+	int			m_sStock;
 
-	int			ms_Income;
+	int			m_sTotalSellCount;
+	int			m_sTotalIncome;
 
 
 
@@ -42,16 +42,16 @@ public: // 책 정보 관리 함수:
 public: // 책 재고 관리 함수:
 	
 	// 책 재고 정보 반환
-	int			s_bookStock();
-	int			s_sellCount();
-	int			s_todaySell();
+	int			getStock();
+	int			getTotalSellCount();
+	int			getTotalIncome();
 
 	// 책 재고 정보 수정
-	int		s_updateStock(int _stock);
-	int			s_addSubStock(int _addSubStock);
+	int			setStock(int _stock);
+	int			setAddSubStock(int _addSubStock);
 
 	// 판매 함수
-	int			s_sell();
+	int			sellBook();
 
 public:	// 책 정보 전체 출력
 	void		bookInfo();	
