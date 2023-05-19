@@ -279,7 +279,7 @@ void addBook(vector<Book*>& bookList)
 	cout << "Categorize(Enter in 100 units): ";
 	cin >> fi;
 	fi = book->setCategorize(fi);
-	if (fi == 1) return;
+	if (fi != 1) return;
 
 	cout << "Book name: ";
 	cin >> fs;
