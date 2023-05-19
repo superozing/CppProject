@@ -16,46 +16,46 @@ int			Book::getBookID()		{ return m_id; }
 int			Book::getCategorize()	{ return m_categorize; }
 
 // 책 정보 반환 - 재고
-int			Book::s_bookStock()		{ return ms_bookStock; }
-int			Book::s_sellCount()		{ return ms_sellCount; }
+int			Book::getStock()		{ return m_sStock; }
+int			Book::getTotalSellCount()		{ return m_sTotalSellCount; }
 // 전체 재고 반환
-int			Book::s_todaySell()		{ return ms_Income; }
+int			Book::getTotalIncome()		{ return m_sTotalIncome; }
 
-int Book::s_updateStock(int _stock)
+int Book::setStock(int _stock)
 {
 	if (0 > _stock)
 	{
 		std::cout << "problem: The remaining stock cannot be less than 0." << std::endl;
 		return INVALID_ID;
 	}
-	ms_bookStock = _stock;
-	std::cout << "The stock has been set to " << ms_bookStock << " ." << std::endl;
+	m_sStock = _stock;
+	std::cout << "The stock has been set to " << m_sStock << " ." << std::endl;
 	return VALID_ID;
 }
 
-int Book::s_addSubStock(int _addSubStock)
+int Book::setAddSubStock(int _addSubStock)
 {
-	if (0 > ms_bookStock + _addSubStock)
+	if (0 > m_sStock + _addSubStock)
 	{
 		std::cout << "problem: The remaining stock cannot be less than 0." << std::endl;
 		return INVALID_ID;
 	}
-	ms_bookStock += _addSubStock;
+	m_sStock += _addSubStock;
 	std::cout << "The stock has been changed by " << _addSubStock 
-		<< " and set to " << ms_bookStock<< " ." << std::endl;
+		<< " and set to " << m_sStock<< " ." << std::endl;
 	return VALID_ID;
 }
 
-int Book::s_sell()
+int Book::sellBook()
 {
-	if (0 >= ms_bookStock)
+	if (0 >= m_sStock)
 	{
 		std::cout << "problem: There is not enough stock to sell." << std::endl;
 		return INVALID_ID;
 	}
-	--ms_bookStock;
-	++ms_sellCount;
-	ms_Income += m_price;
+	--m_sStock;
+	++m_sTotalSellCount;
+	m_sTotalIncome += m_price;
 	std::cout << "The selling has been completed." << std::endl;
 	return VALID_ID;
 }
@@ -210,12 +210,12 @@ void Book::bookInfo()
 		std::cout << "price      : \"Not set\"" << std::endl;
 
 	if (INVALID_ID != m_page)
-		std::cout << "stock      : " << ms_bookStock << std::endl;
+		std::cout << "stock      : " << m_sStock << std::endl;
 	else
 		std::cout << "stock      : \"Not set\"" << std::endl;
 
 	if (INVALID_ID != m_page)
-		std::cout << "sell count : " << ms_sellCount << std::endl;
+		std::cout << "sell count : " << m_sTotalSellCount << std::endl;
 	else
 		std::cout << "sell count : \"Not set\"" << std::endl;
 
@@ -231,9 +231,9 @@ Book::Book()
 	, m_page(INVALID_ID)
 	, m_categorize(INVALID_ID)
 	, m_id(INVALID_ID)
-	, ms_Income(0)
-	, ms_bookStock(INVALID_ID)
-	, ms_sellCount(0)
+	, m_sTotalIncome(0)
+	, m_sStock(INVALID_ID)
+	, m_sTotalSellCount(0)
 {
 }
 
@@ -244,10 +244,10 @@ Book::Book(std::string _bookName, std::string _bookAuthor, int _price, int _page
 	, m_page(_page)
 	, m_categorize(_categorize)
 	, m_id(NULL)
-	, ms_Income(0)
+	, m_sTotalIncome(0)
 
-	, ms_bookStock(_bookStock)
-	, ms_sellCount(0)
+	, m_sStock(_bookStock)
+	, m_sTotalSellCount(0)
 {
 	switch (_categorize)
 	{

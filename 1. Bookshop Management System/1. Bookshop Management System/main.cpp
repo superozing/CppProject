@@ -174,26 +174,26 @@ void stockMode(Book* _book)
 	{
 	case 1:
 		cout << "Book stock: ";
-		cout << _book->s_bookStock();
+		cout << _book->getStock();
 		cout << endl;
 		break;
 	case 2:
 		cout << "set book stock: ";
 		cin >> fi;
-		if (INVALID_ID == _book->s_updateStock(fi)) return;
-		_book->s_updateStock(fi);
+		if (INVALID_ID == _book->setStock(fi)) return;
+		_book->setStock(fi);
 		cout << endl;
 		break;
 	case 3:
 		cout << " add-sub book stock: ";
 		cin >> fi;
-		if (INVALID_ID == _book->s_addSubStock(fi)) return;
-		_book->s_addSubStock(fi);
+		if (INVALID_ID == _book->setAddSubStock(fi)) return;
+		_book->setAddSubStock(fi);
 		cout << endl;
 		break;
 	case 4:
 		cout << "Book sellCount: ";
-		cout << _book->s_sellCount();
+		cout << _book->getTotalSellCount();
 		cout << endl;
 		break;
 	default:
@@ -226,7 +226,7 @@ void BookMode(Book* _book)
 		break;
 	case 3:
 		system("cls");
-		_book->s_sell();
+		_book->sellBook();
 		break;
 	default:
 		break;
@@ -368,8 +368,8 @@ void mainScreen(vector<Book*>& bookList)
 
 	for (int i = 0; i < bookList.size(); ++i)
 	{
-		totalSell += bookList[i]->s_sellCount();
-		totalIncome += bookList[i]->s_todaySell();
+		totalSell += bookList[i]->getTotalSellCount();
+		totalIncome += bookList[i]->getTotalIncome();
 	}
 
 	cout << "**********Bookshop Management System**********" << endl;
