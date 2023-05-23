@@ -1,14 +1,19 @@
 #include "Book.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include "json.hpp"
 
+
+// using 키워드 사용
+using json = nlohmann::json; 
 using namespace std;
 
 const int	INVALID_ID	= -1;
 const int	VALID_ID	= 1;
 
 // 전역 함수를 정의합니다: 
-void mainScreen(vector<Book*>& bookList);
+int mainScreen(vector<Book*>& bookList);
 void selectFunction(vector<Book*>& bookList);
 void BookMode(Book* _book);
 void informationMode(Book* _book);
@@ -24,20 +29,48 @@ void deleteBook(vector<Book*>& bookList);
 // main() 함수를 정의합니다:
 int main()
 {
-	Book*			bookBuffer	= {};
-	vector<Book*>	bookList;
-	
+	vector<Book*> bookList;
+	Book*	bookBuffer	= {};
+	bool	ITER		= true;
+
 	// 예시 책 객체
 	bookList.push_back(bookBuffer = new Book("InMyPJH", "PJH", 7500, 210, 000, 10));
 	bookList.push_back(bookBuffer = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10));
 	bookList.push_back(bookBuffer = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10));
 
-	while (true)
-	{
-		mainScreen(bookList);
-	}
+	while (ITER) ITER = mainScreen(bookList);
 
 	// 종료 직전에 파일 입력 구현해놓는 것이 마지막 목표
+	json jBookList;
+	json jBookBuffer;
+
+	for (const auto& pBook : bookList)
+	{
+		jBookBuffer["m_name"]		= pBook->getBookName();
+		jBookBuffer["m_author"]		= pBook->getBookAuthor();
+		jBookBuffer["m_price"]		= pBook->getPrice();
+		jBookBuffer["m_page"]		= pBook->getPage();
+		jBookBuffer["m_id"]			= pBook->getBookID();
+		jBookBuffer["m_categorize"] = pBook->getCategorize();
+		jBookBuffer["m_sStock"]		= pBook->getStock();
+
+		jBookList.push_back(jBookBuffer);
+	}
+
+	cout << jBookList << endl;
+
+	ofstream file("bookdata.json");
+	if (file.is_open()) 
+	{
+		file << jBookList.dump(4); // 들여쓰기를 포함한 형식으로 데이터를 파일에 쓰기
+		file.close(); // 파일 닫기
+		std::cout << "JSON 데이터를 파일에 작성했습니다." << std::endl;
+	}
+	else 
+	{
+		std::cerr << "파일을 열 수 없습니다." << std::endl;
+	}
+
 	return 0;
 }
 
@@ -360,16 +393,16 @@ void selectFunction(vector<Book*>& bookList)
 
 
 
-void mainScreen(vector<Book*>& bookList)
+int mainScreen(vector<Book*>& bookList)
 {
 	int selector	= 0;
 	int	totalSell	= 0; 
 	int totalIncome = 0;
 
-	for (int i = 0; i < bookList.size(); ++i)
+	for (const auto& pBook : bookList)//int i = 0; i < bookList.size(); ++i)
 	{
-		totalSell += bookList[i]->getTotalSellCount();
-		totalIncome += bookList[i]->getTotalIncome();
+		totalSell += pBook->getTotalSellCount();
+		totalIncome += pBook->getTotalIncome();
 	}
 
 	cout << "**********Bookshop Management System**********" << endl;
@@ -393,7 +426,12 @@ void mainScreen(vector<Book*>& bookList)
 	case 2:
 		selectFunction(bookList);
 		break;
+	case 0:
+		cout << "Save and exit book data." << endl << "You did a great job today." << endl << endl;
+		return 0;
 	default:
 		break;
 	}
+
+	return 1;
 }
