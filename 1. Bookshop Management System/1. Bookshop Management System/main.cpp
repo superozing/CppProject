@@ -438,8 +438,8 @@ int mainScreen(vector<Book*>& bookList)
 	cout << totalIncome << endl << endl;
 	cout << "- Menu ---------------------------------------" << endl;
 	cout << "1. bookList" << endl;
-	cout << "2. function" << endl;
-	cout << "0. Exit program" << endl;
+	cout << "2. function" << endl << endl;
+	cout << "0. Exit program" << endl << endl;
 	cout << "select number: ";
 	cin >> selector;
 

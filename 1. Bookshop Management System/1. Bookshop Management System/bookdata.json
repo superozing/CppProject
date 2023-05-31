@@ -16,11 +16,11 @@
         "m_sStock": 10
     },
     {
-        "m_author": "qwe",
-        "m_categorize": 200,
-        "m_name": "aaa",
-        "m_page": 100,
-        "m_price": 100,
-        "m_sStock": -1
+        "m_author": "shinminseo",
+        "m_categorize": 500,
+        "m_name": "ILovePJH",
+        "m_page": 1,
+        "m_price": 1000000,
+        "m_sStock": 10000
     }
 ]
