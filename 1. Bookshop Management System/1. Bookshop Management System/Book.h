@@ -61,3 +61,4 @@ public:	// 책 정보 전체 출력
 	Book(std::string _bookName, std::string _bookAuthor, int _price, int _page, int _categorize, int _bookStock);
 	~Book();
 };
+

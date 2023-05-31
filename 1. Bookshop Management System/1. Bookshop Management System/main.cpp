@@ -1,8 +1,8 @@
 #include "Book.h"
+#include "json.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "json.hpp"
 
 
 // using 키워드 사용
@@ -13,7 +13,7 @@ const int	INVALID_ID	= -1;
 const int	VALID_ID	= 1;
 
 // 전역 함수를 정의합니다: 
-int mainScreen(vector<Book*>& bookList);
+int  mainScreen(vector<Book*>& bookList);
 void selectFunction(vector<Book*>& bookList);
 void BookMode(Book* _book);
 void informationMode(Book* _book);
@@ -24,57 +24,82 @@ void selectBookList(const vector<Book*>& bookList);
 void addBook(vector<Book*>& bookList);
 void deleteBook(vector<Book*>& bookList);
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+void readBooklistFile(json& data, std::vector<Book*>& bookList, Book*& bookBuffer);
+void saveBooklistFile(std::vector<Book*>& bookList, json& jBookBuffer, json& jBookList);
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 // main() 함수를 정의합니다:
 int main()
 {
 	vector<Book*> bookList;
 	Book*	bookBuffer	= {};
-	bool	ITER		= true;
+	bool	ITER		= true;	
+	json	data;
 
-	// 예시 책 객체
-	bookList.push_back(bookBuffer = new Book("InMyPJH", "PJH", 7500, 210, 000, 10));
-	bookList.push_back(bookBuffer = new Book("Fuck You PJH", "PZH", 9000, 300, 500, 10));
-	bookList.push_back(bookBuffer = new Book("InMyPJH2", "PJH", 7500, 210, 100, 10));
-
-	while (ITER) ITER = mainScreen(bookList);
-
-	// 종료 직전에 파일 입력 구현해놓는 것이 마지막 목표
 	json jBookList;
 	json jBookBuffer;
 
+
+	// booklist.json에서 데이터 읽어오기
+	readBooklistFile(data, bookList, bookBuffer);
+
+	// main()함수가 종료되지 않게 하기 위한 반복자. 절대 건들지 마세요.
+	while (ITER) ITER = mainScreen(bookList); 
+
+	// booklist.json에  데이터 저장하기
+	saveBooklistFile(bookList, jBookBuffer, jBookList);
+
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+void saveBooklistFile(std::vector<Book*>& bookList, json& jBookBuffer, json& jBookList)
+{
 	for (const auto& pBook : bookList)
 	{
-		jBookBuffer["m_name"]		= pBook->getBookName();
-		jBookBuffer["m_author"]		= pBook->getBookAuthor();
-		jBookBuffer["m_price"]		= pBook->getPrice();
-		jBookBuffer["m_page"]		= pBook->getPage();
-		jBookBuffer["m_id"]			= pBook->getBookID();
+		jBookBuffer["m_name"] = pBook->getBookName();
+		jBookBuffer["m_author"] = pBook->getBookAuthor();
+		jBookBuffer["m_price"] = pBook->getPrice();
+		jBookBuffer["m_page"] = pBook->getPage();
 		jBookBuffer["m_categorize"] = pBook->getCategorize();
-		jBookBuffer["m_sStock"]		= pBook->getStock();
+		jBookBuffer["m_sStock"] = pBook->getStock();
 
 		jBookList.push_back(jBookBuffer);
 	}
 
 	cout << jBookList << endl;
 
-	ofstream file("bookdata.json");
-	if (file.is_open()) 
+	ofstream oFile("bookdata.json");
+	if (oFile.is_open())
 	{
-		file << jBookList.dump(4); // 들여쓰기를 포함한 형식으로 데이터를 파일에 쓰기
-		file.close(); // 파일 닫기
-		std::cout << "JSON 데이터를 파일에 작성했습니다." << std::endl;
+		oFile << jBookList.dump(4); // 들여쓰기를 포함한 형식으로 데이터를 파일에 쓰기
+		oFile.close(); // 파일 닫기
+		std::cout << "JSON data has been successfully written to a file." << std::endl;
 	}
-	else 
+	else
 	{
-		std::cerr << "파일을 열 수 없습니다." << std::endl;
+		std::cerr << "cannot open file." << std::endl;
 	}
-
-	return 0;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+void readBooklistFile(json& data, std::vector<Book*>& bookList, Book*& bookBuffer)
+{
+	// bookdata.json에서 json객체 읽어오기
+	ifstream iFile("bookdata.json");
+
+	if (!(iFile.is_open())) std::cerr << "cannot open file." << std::endl;
+
+	iFile >> data;
+
+	for (const auto& pd : data)
+	{
+		bookList.push_back(bookBuffer = new Book(pd["m_name"], pd["m_author"], pd["m_price"], pd["m_page"], pd["m_categorize"], pd["m_sStock"]));
+	}
+
+	std::cout << "JSON 데이터를 정상적으로 읽어왔습니다." << std::endl;
+	iFile.close(); // 파일 닫기
+}
+
 
 void informationMode(Book* _book)
 {
@@ -414,6 +439,7 @@ int mainScreen(vector<Book*>& bookList)
 	cout << "- Menu ---------------------------------------" << endl;
 	cout << "1. bookList" << endl;
 	cout << "2. function" << endl;
+	cout << "0. Exit program" << endl;
 	cout << "select number: ";
 	cin >> selector;
 

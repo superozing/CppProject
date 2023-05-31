@@ -119,10 +119,11 @@ int Book::setPage(int _pageCount)
 
 int	Book::setCategorize(int _CategorizeCount)
 {
-	if (000 == _CategorizeCount || 100 == _CategorizeCount || 200 == _CategorizeCount || 300 == _CategorizeCount ||
+	if (0 == _CategorizeCount || 100 == _CategorizeCount || 200 == _CategorizeCount || 300 == _CategorizeCount ||
 		400 == _CategorizeCount || 500 == _CategorizeCount || 600 == _CategorizeCount || 700 == _CategorizeCount ||
 		800 == _CategorizeCount || 900 == _CategorizeCount)
 	{
+		m_categorize = _CategorizeCount;
 		m_id = _CategorizeCount + IDBuffer[_CategorizeCount / 100];
 		return VALID_ID;
 	}

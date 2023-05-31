@@ -1,17 +1,7 @@
 [
     {
-        "m_author": "PJH",
-        "m_categorize": 0,
-        "m_id": 0,
-        "m_name": "InMyPJH",
-        "m_page": 210,
-        "m_price": 7500,
-        "m_sStock": 10
-    },
-    {
         "m_author": "PZH",
         "m_categorize": 500,
-        "m_id": 500,
         "m_name": "Fuck You PJH",
         "m_page": 300,
         "m_price": 9000,
@@ -20,10 +10,17 @@
     {
         "m_author": "PJH",
         "m_categorize": 100,
-        "m_id": 100,
         "m_name": "InMyPJH2",
         "m_page": 210,
         "m_price": 7500,
         "m_sStock": 10
+    },
+    {
+        "m_author": "qwe",
+        "m_categorize": 200,
+        "m_name": "aaa",
+        "m_page": 100,
+        "m_price": 100,
+        "m_sStock": -1
     }
 ]
