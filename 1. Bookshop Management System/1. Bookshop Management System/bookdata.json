@@ -14,13 +14,5 @@
         "m_page": 210,
         "m_price": 7500,
         "m_sStock": 10
-    },
-    {
-        "m_author": "shinminseo",
-        "m_categorize": 500,
-        "m_name": "ILovePJH",
-        "m_page": 1,
-        "m_price": 1000000,
-        "m_sStock": 10000
     }
 ]

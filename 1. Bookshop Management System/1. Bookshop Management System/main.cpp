@@ -14,6 +14,7 @@ const int	VALID_ID	= 1;
 
 // 전역 함수를 정의합니다: 
 int  mainScreen(vector<Book*>& bookList);
+
 void selectFunction(vector<Book*>& bookList);
 void BookMode(Book* _book);
 void informationMode(Book* _book);
@@ -31,23 +32,33 @@ void saveBooklistFile(std::vector<Book*>& bookList, json& jBookBuffer, json& jBo
 // main() 함수를 정의합니다:
 int main()
 {
+	// whlie 안의 mainscreen이 반복될지 말지를 정하는 keepLooping 
+	bool	keepLooping		= true;	
+	
+	// 책을 보관할 벡터 bookList
 	vector<Book*> bookList;
-	Book*	bookBuffer	= {};
-	bool	ITER		= true;	
-	json	data;
 
-	json jBookList;
-	json jBookBuffer;
+	// 책의 정보를 들고있다가 bookList에 넣기 위한 변수인 bookBuffer
+	Book*	bookBuffer	= {};
+
+	// json 데이터 입출력 변수
+	json	data;
+	json	jsonBookList;
+	json	jsonBookBuffer;
 
 
 	// booklist.json에서 데이터 읽어오기
 	readBooklistFile(data, bookList, bookBuffer);
 
 	// main()함수가 종료되지 않게 하기 위한 반복자. 절대 건들지 마세요.
-	while (ITER) ITER = mainScreen(bookList); 
+	while (keepLooping) keepLooping = mainScreen(bookList); 
 
 	// booklist.json에  데이터 저장하기
-	saveBooklistFile(bookList, jBookBuffer, jBookList);
+	saveBooklistFile(bookList, jsonBookBuffer, jsonBookList);
+
+	// 종료 이후 heab 공간 해제, bookList지우기
+	for (Book* pbook : bookList) delete pbook;
+	bookList.clear();
 
 	return 0;
 }
@@ -70,6 +81,7 @@ void saveBooklistFile(std::vector<Book*>& bookList, json& jBookBuffer, json& jBo
 	cout << jBookList << endl;
 
 	ofstream oFile("bookdata.json");
+
 	if (oFile.is_open())
 	{
 		oFile << jBookList.dump(4); // 들여쓰기를 포함한 형식으로 데이터를 파일에 쓰기
@@ -432,14 +444,14 @@ int mainScreen(vector<Book*>& bookList)
 
 	cout << "**********Bookshop Management System**********" << endl;
 	cout << "- Today --------------------------------------" << endl;
-	cout << "sell count : ";
-	cout << totalSell << endl;
-	cout << "income     : ";
-	cout << totalIncome << endl << endl;
+	cout << "sell count : " << totalSell << endl;
+	cout << "income     : " << totalIncome << endl << endl;
 	cout << "- Menu ---------------------------------------" << endl;
 	cout << "1. bookList" << endl;
 	cout << "2. function" << endl << endl;
+
 	cout << "0. Exit program" << endl << endl;
+
 	cout << "select number: ";
 	cin >> selector;
 
