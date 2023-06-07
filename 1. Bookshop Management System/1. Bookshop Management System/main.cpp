@@ -66,17 +66,39 @@ int main()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void saveBooklistFile(std::vector<Book*>& bookList, json& jBookBuffer, json& jBookList)
 {
-	for (const auto& pBook : bookList)
+	for (unsigned i = 0; i < bookList.size(); ++i)
 	{
-		jBookBuffer["m_name"] = pBook->getBookName();
-		jBookBuffer["m_author"] = pBook->getBookAuthor();
-		jBookBuffer["m_price"] = pBook->getPrice();
-		jBookBuffer["m_page"] = pBook->getPage();
-		jBookBuffer["m_categorize"] = pBook->getCategorize();
-		jBookBuffer["m_sStock"] = pBook->getStock();
+		jBookBuffer["m_name"] = bookList[i]->getBookName();
+		jBookBuffer["m_author"] = bookList[i]->getBookAuthor();
+		jBookBuffer["m_price"] = bookList[i]->getPrice();
+		jBookBuffer["m_page"] = bookList[i]->getPage();
+		jBookBuffer["m_categorize"] = bookList[i]->getCategorize();
+		jBookBuffer["m_sStock"] = bookList[i]->getStock();
 
 		jBookList.push_back(jBookBuffer);
 	}
+	//for (std::vector<Book*>::size_type i = 0 ; i < bookList.size(); ++i)
+	//{
+	//	jBookBuffer["m_name"] = bookList[i]->getBookName();
+	//	jBookBuffer["m_author"] = bookList[i]->getBookAuthor();
+	//	jBookBuffer["m_price"] = bookList[i]->getPrice();
+	//	jBookBuffer["m_page"] = bookList[i]->getPage();
+	//	jBookBuffer["m_categorize"] = bookList[i]->getCategorize();
+	//	jBookBuffer["m_sStock"] = bookList[i]->getStock();
+
+	//	jBookList.push_back(jBookBuffer);
+	//}
+	//for (const auto& pBook : bookList)
+	//{
+	//	jBookBuffer["m_name"] = pBook->getBookName();
+	//	jBookBuffer["m_author"] = pBook->getBookAuthor();
+	//	jBookBuffer["m_price"] = pBook->getPrice();
+	//	jBookBuffer["m_page"] = pBook->getPage();
+	//	jBookBuffer["m_categorize"] = pBook->getCategorize();
+	//	jBookBuffer["m_sStock"] = pBook->getStock();
+
+	//	jBookList.push_back(jBookBuffer);
+	//}
 
 	cout << jBookList << endl;
 
